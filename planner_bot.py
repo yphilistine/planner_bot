@@ -399,13 +399,13 @@ def setup_jobs(application: Application):
     
     job_queue.run_daily(
         send_daily_question,
-        time=time(hour=19, minute=0),  # 18:00 МСК = 15:00 UTC
+        time=time(hour=15, minute=0),  # 18:00 МСК = 15:00 UTC
         name="daily_question"
     )
     
     job_queue.run_daily(
         send_daily_summary,
-        time=time(hour=20, minute=0),  # 20:00 МСК = 17:00 UTC
+        time=time(hour=17, minute=0),  # 20:00 МСК = 17:00 UTC
         name="daily_summary"
     )
     
@@ -447,3 +447,4 @@ pause
     
 
     main()
+
