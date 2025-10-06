@@ -19,7 +19,7 @@ logging.basicConfig(
     ]
 )
 
-BOT_TOKEN = "8409148505:AAFO6lUIg9X8pLe1Rg7LR6Ybal6rMTl0Eg8"
+BOT_TOKEN = "ебать не должно"
 
 def get_moscow_time():
     """Получение московского времени (UTC+3)"""
@@ -445,4 +445,5 @@ pause
 ''')
        
     
+
     main()
