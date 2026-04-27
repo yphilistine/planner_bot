@@ -5,7 +5,7 @@ from datetime import datetime, time, timedelta
 from typing import Dict, List, Optional, Tuple
 from enum import Enum
 import re
-from zoneinfo import ZoneInfo  # Python 3.9+; для более старых версий используйте pytz
+from zoneinfo import ZoneInfo
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -19,9 +19,9 @@ DAYS_RU = ["Понедельник", "Вторник", "Среда", "Четве
 TIME_PATTERN = re.compile(r'^([01]\d|2[0-3]):[0-5]\d$')  # ЧЧ:ММ
 
 # Тексты сообщений
-MSG_WELCOME = "Добро пожаловать! Используйте /help для списка команд."
+MSG_WELCOME = "/help для списка команд."
 MSG_HELP = (
-    "🤖 *Бот-планировщик встреч*\n\n"
+    " *Бот-планировщик*\n\n"
     "• /start — показать расписание\n"
     "• /help — эта справка\n"
     "• /my_schedule — моё личное расписание\n"
@@ -37,14 +37,14 @@ MSG_CHANGE_NICK_PROMPT = "Введите новый никнейм:"
 MSG_NICK_CHANGED = "Никнейм изменён на: {}"
 MSG_SET_TIME_PROMPT = "Введи время для {} в формате ЧЧ:ММ (например, 19:30):"
 MSG_TIME_SET = "Время для {} установлено: {}"
-MSG_INVALID_TIME = "❌ Неверный формат времени. Используйте ЧЧ:ММ (например, 19:30)"
-MSG_DAILY_QUESTION = "🕔 **Встреча сегодня**\n\nГотовы ли вы?"
+MSG_INVALID_TIME = " Неверный формат времени. Используйте ЧЧ:ММ (например, 19:30)"
+MSG_DAILY_QUESTION = " **Встреча сегодня**\n\nГотовы ли вы?"
 MSG_READY_CUSTOM_TIME = "Введи удобное время в формате ЧЧ:ММ:"
-MSG_RESPONSE_RECORDED = "✅ Ваш ответ записан: {}"
-MSG_RESPONSE_UPDATED = "🔄 Ваш ответ изменён на: {}"
+MSG_RESPONSE_RECORDED = " Ваш ответ записан: {}"
+MSG_RESPONSE_UPDATED = " Ваш ответ изменён на: {}"
 MSG_CUSTOM_TIME_SAVED = "Заметано. Записал время: {}"
-MSG_SUBSCRIBED = "✅ Вы подписались на ежедневные вопросы."
-MSG_UNSUBSCRIBED = "❌ Вы отписались от ежедневных вопросов. Чтобы снова получать вопросы, используйте /subscribe"
+MSG_SUBSCRIBED = " Вы подписались на ежедневные вопросы."
+MSG_UNSUBSCRIBED = " Вы отписались от ежедневных вопросов. Чтобы снова получать вопросы, используйте /subscribe"
 MSG_NO_RESPONSES_TODAY = "**Сводка за сегодня:**\n\nНет ответов от пользователей."
 
 # Callback data
@@ -300,7 +300,7 @@ def get_main_keyboard() -> InlineKeyboardMarkup:
 
 def get_back_keyboard() -> InlineKeyboardMarkup:
     """Клавиатура с кнопкой 'Назад'."""
-    return InlineKeyboardMarkup([[InlineKeyboardButton("↩️ Назад", callback_data=CB_SHOW_SCHEDULE)]])
+    return InlineKeyboardMarkup([[InlineKeyboardButton("Назад", callback_data=CB_SHOW_SCHEDULE)]])
 
 def get_daily_question_keyboard() -> InlineKeyboardMarkup:
     """Клавиатура для ежедневного вопроса."""
@@ -333,7 +333,7 @@ async def cmd_my_schedule(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_times = await get_user_times(user_id)
     times_dict = {day: time for day, time in user_times}
     message = MSG_MY_SCHEDULE_TITLE + format_schedule_for_user(nickname, times_dict)
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("📅 Общее расписание", callback_data=CB_SHOW_SCHEDULE)]])
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Общее расписание", callback_data=CB_SHOW_SCHEDULE)]])
     await update.message.reply_text(message, reply_markup=keyboard, parse_mode='Markdown')
 
 async def cmd_subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -391,7 +391,7 @@ async def handle_my_schedule(update: Update, context: ContextTypes.DEFAULT_TYPE)
     user_times = await get_user_times(user_id)
     times_dict = {day: time for day, time in user_times}
     message = MSG_MY_SCHEDULE_TITLE + format_schedule_for_user(nickname, times_dict)
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("📅 Общее расписание", callback_data=CB_SHOW_SCHEDULE)]])
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Общее расписание", callback_data=CB_SHOW_SCHEDULE)]])
     await query.edit_message_text(message, reply_markup=keyboard, parse_mode='Markdown')
 
 async def handle_change_nick(update: Update, context: ContextTypes.DEFAULT_TYPE):
